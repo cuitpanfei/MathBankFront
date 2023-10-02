@@ -1,0 +1,931 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {
+    display: block
+}
+
+abbr,address,mark,meter,output,progress,time {
+    display: block
+}
+
+audio,canvas,video {
+    display: inline-block
+}
+
+a {
+    text-decoration: none
+}
+
+ul,li {
+    list-style: none
+}
+
+input {
+    border: 0;
+    outline: 0
+}
+
+img {
+    border: 0
+}
+
+:root {
+    width: 100vw;
+    min-height: 100%;
+    min-height: 100vh;
+    background: var(--bg-color2);
+    font-family: var(--font-family1)
+}
+
+:root body {
+    width: 100%
+}
+
+.hidden,[hidden] {
+    display: none !important
+}
+
+.sightless,[sightless] {
+    visibility: hidden !important
+}
+
+.clearfix::after {
+    content: "";
+    display: block;
+    zoom:1;clear: both;
+    overflow: hidden;
+    font-size: 0;
+    height: 0
+}
+
+.symbol {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden
+}
+
+:root {
+    --primary-color1: #2877ff;
+    --primary-color1-hover: #006fff;
+    --primary-color-light1: #f0f8ff;
+    --primary-color2: #333;
+    --primary-color3: #fff;
+    --primary-font-color1: #2877ff;
+    --primary-font-color1-hover: #006fff;
+    --title-color: #2877ff;
+    --title-color-hover: #006fff;
+    --link-color: #2877ff;
+    --link-color-hover: #006fff;
+    --font-color1: #8a4d06;
+    --font-color2: #333;
+    --font-color3: #666;
+    --font-color4: #999;
+    --font-color5: #fff;
+    --primary-bg-color1: #2877ff;
+    --primary-bg-hover-color1: #006fff;
+    --primary-bg-color2: #f0f8ff;
+    --line-color1: #ececec;
+    --line-color2: #f4f9ff;
+    --bg-color2: #f1f1f1;
+    --bg-color3: #fff;
+    --bg-color4: #b2d8ff;
+    --bg-color5: #f4f9ff;
+    --btn-bg-color: #2877ff;
+    --btn-border-color: #2877ff;
+    --btn-bg-color-hover: #006fff;
+    --btn-border-color-hover: #006fff;
+    --error-color: #ff4c3b;
+    --error-color1: #ff4c3b;
+    --tip-bg-color: #ff4c3b;
+    --tag-color1: #ff4509;
+    --memeber-per: #333;
+    --page-bg: #f1f1f1;
+    --special-bg: #b2d8ff;
+    --strong-gap: #ececec;
+    --weak-gap: #f4f9ff;
+    --font-family1: 'Microsoft YaHei',PingFang SC,Helvetica,Tahoma,Arial,sana-serif;
+    --font-family2: "Times New Roman","Microsoft Yahei",Arial,Helvetica,sans-serif;
+    --fontFamily1: 'Microsoft YaHei',PingFang SC,Helvetica,Tahoma,Arial,sana-serif;
+    --fontFamily2: "Times New Roman","Microsoft Yahei",Arial,Helvetica,sans-serif;
+    --fontSize1: 1rem;
+    --fontSize2: .875rem;
+    --fontSize3: .75rem;
+    --gap1: 12px;
+    --gap2: 20px;
+    --gap3: 16px;
+    --asideW: 16.4375rem;
+    --cntW: 57.8125rem;
+    --asideWP: 21.916%;
+    --cntWP: 77.083%;
+    --borderRadius1: 3px;
+    --borderRadius2: 4px;
+    --inputFocus: 0 0 4px 2px #2695ff;
+    --border1: 1px solid #ececec;
+    --border2: 1px solid #2877ff
+}
+
+.tk-dialog {
+    display: table;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    border: 0;
+    background: transparent;
+    opacity: 0;
+    -ms-transition-property: opacity;
+    -ms-transition-duration: .3s;
+    -ms-transition-timing-function: ease;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: .3s;
+    -webkit-transition-timing-function: ease;
+    transition-property: opacity;
+    transition-duration: .3s;
+    transition-timing-function: ease
+}
+
+.tk-dialog.showDialog {
+    opacity: 1
+}
+
+.tk-dialog::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+.tk-dialog.iframe-parent {
+    background: transparent
+}
+
+.tk-dialog>.wrapper {
+    display: table-cell;
+    min-height: 12.5rem;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    z-index: 100
+}
+
+.tk-dialog>.wrapper>.box {
+    display: inline-block;
+    min-width: 22.5rem;
+    min-height: 3.125rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 .25rem .25rem;
+    box-shadow: 0 6px 6px 0 rgba(0,0,0,0.3)
+}
+
+.tk-dialog-alpha-bg::after {
+    opacity: 0 !important
+}
+
+.tk-dialog .dialog__title {
+    display: block;
+    height: 3.125rem;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-radius: .25rem .25rem 0 0;
+    padding: 0 1.25rem;
+    text-align: left;
+    background: var(--bg-color3);
+    border-bottom: var(--border1);
+    position: relative
+}
+
+.tk-dialog .dialog__title>.title__txt {
+    display: inline-block;
+    height: 100%;
+    font-size: 1.125rem;
+    color: var(--font-color2);
+    text-align: left;
+    font-weight: normal;
+    line-height: 2.8
+}
+
+.tk-dialog .dialog__title>.close-btn {
+    display: block;
+    width: .875rem;
+    height: .875rem;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+
+.tk-dialog .dialog__title>.close-btn::before {
+    content: "";
+    display: inline-block;
+    width: .125rem;
+    height: 1.375rem;
+    background: #bebebe;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: left top;
+    transform: rotate(-45deg) translate(-50%,-50%)
+}
+
+.tk-dialog .dialog__title>.close-btn::after {
+    content: "";
+    display: inline-block;
+    width: .125rem;
+    height: 1.375rem;
+    background: #bebebe;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: left top;
+    transform: rotate(45deg) translate(-50%,-50%)
+}
+
+.tk-dialog .dialog__cnt {
+    display: block;
+    width: 100%;
+    max-width: 80vw;
+    min-height: .625rem;
+    background: var(--bg-color3);
+    text-align: center;
+    font-size: 0;
+    word-break: break-all;
+    white-space: normal;
+    box-sizing: border-box;
+    padding: .625rem
+}
+
+.tk-dialog .dialog__cnt>* {
+    font-size: 1rem
+}
+
+.tk-dialog .dialog__cnt[data-confirm="1"] {
+    min-height: 4.5rem;
+    line-height: 4.5rem
+}
+
+.tk-dialog .wrapper .box>.dialog__cnt[data-confirm="1"]>* {
+    line-height: 1.5;
+    font-size: .875rem
+}
+
+.tk-dialog .dialog__cnt>.confirm-str {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    text-align: center;
+    font-size: .875rem;
+    word-break: break-all;
+    white-space: normal;
+    box-sizing: border-box;
+    padding: .625rem
+}
+
+.tk-dialog .dialog-btn-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5.875rem;
+    font-size: 0;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 0 0 .25rem .25rem;
+    background: var(--bg-color3)
+}
+
+.tk-dialog .dialog-btn-box>.dialog-btn {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: .25rem;
+    margin: 0 1rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    cursor: pointer;
+    outline: 0
+}
+
+.tk-dialog .dialog-btn-box>.dialog-btn.confirm-btn {
+    display: inline-block;
+    vertical-align: middle;
+    width: 5.375rem;
+    height: 2rem;
+    box-sizing: border-box;
+    padding: 5px 14px;
+    border: 1px solid #2877ff;
+    border-radius: 3px;
+    font-family: 'Microsoft YaHei',PingFang SC,Helvetica,Tahoma,Arial,sana-serif;
+    font-size: .875rem;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    background: #2877ff;
+    color: #fff
+}
+
+.tk-dialog .dialog-btn-box>.dialog-btn.confirm-btn:hover {
+    background: #006fff;
+    color: #fff;
+    border-color: #006fff
+}
+
+.tk-dialog .dialog-btn-box>.dialog-btn.confirm-btn.disabled {
+    color: #fff;
+    background: #999;
+    border-color: #999;
+    cursor: not-allowed;
+    pointer-events: none
+}
+
+.tk-dialog .dialog-btn-box>.dialog-btn.confirm-btn.disabled:hover {
+    color: #999;
+    background: #999;
+    border-color: #999
+}
+
+.tk-dialog .dialog-btn-box>.dialog-btn.cancel-btn {
+    display: inline-block;
+    vertical-align: middle;
+    width: 5.375rem;
+    height: 2rem;
+    box-sizing: border-box;
+    padding: 5px 14px;
+    border: 1px solid #2877ff;
+    border-radius: 3px;
+    font-family: 'Microsoft YaHei',PingFang SC,Helvetica,Tahoma,Arial,sana-serif;
+    font-size: .875rem;
+    line-height: 1;
+    cursor: pointer;
+    background: #fff;
+    color: #2877ff
+}
+
+.tk-dialog .dialog-btn-box>.dialog-btn.cancel-btn:hover {
+    border-color: #006fff;
+    color: #2877ff
+}
+
+.tk-dialog .dialog-btn-box>.dialog-btn.cancel-btn.disabled {
+    color: #999;
+    border-color: #999;
+    cursor: not-allowed
+}
+
+.tk-dialog .dialog-btn-box>.dialog-btn.cancel-btn.disabled:hover {
+    color: #999;
+    border-color: #999
+}
+
+.tk-dialog>.iframe-box {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent
+}
+
+.tk-dialog>.iframe-box>.iframe-el {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 100;
+    border: 0;
+    background: transparent
+}
+
+.tk-dialog .quick-box {
+    display: inline-block;
+    min-width: 37.5rem;
+    max-width: 80%;
+    min-height: 2.8125rem;
+    background: var(--bg-color3);
+    box-sizing: border-box;
+    border-radius: .25rem;
+    padding: .875rem 1.875rem;
+    box-shadow: 4px 2px 13px 2px rgba(51,51,51,0.26);
+    font-size: 0;
+    text-align: left
+}
+
+.tk-dialog .quick-box>i.icon,.tk-dialog .quick-box>.title__txt,.tk-dialog .quick-box>.close-btn {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: .875rem
+}
+
+.tk-dialog .quick-box>i.icon {
+    margin-right: .5rem;
+    font-size: 1.125rem
+}
+
+.tk-dialog .quick-box>.title__txt {
+    min-width: 31.5625rem;
+    max-width: 80%;
+    font-weight: bold;
+    word-break: break-all;
+    white-space: normal;
+    margin-right: .5rem
+}
+
+.tk-dialog .quick-box>a {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    position: relative;
+    -ms-transform: scale(0.8,0.8);
+    -moz-transform: scale(0.8,0.8);
+    -webkit-transform: scale(0.8,0.8);
+    transform: scale(0.8,0.8);
+    opacity: .5
+}
+
+.tk-dialog .quick-box>a>a:hover {
+    opacity: 1
+}
+
+.tk-dialog .quick-box>a::before {
+    content: "";
+    display: inline-block;
+    width: .1875rem;
+    height: 1.375rem;
+    background: #bbb;
+    -ms-transform-origin: left top;
+    -ms-transform: rotate(-45deg) translate(-50%,-50%);
+    -moz-transform-origin: left top;
+    -moz-transform: rotate(-45deg) translate(-50%,-50%);
+    -webkit-transform-origin: left top;
+    -webkit-transform: rotate(-45deg) translate(-50%,-50%);
+    transform-origin: left top;
+    transform: rotate(-45deg) translate(-50%,-50%);
+    position: absolute;
+    top: 50%;
+    left: 50%
+}
+
+.tk-dialog .quick-box>a::after {
+    content: "";
+    display: inline-block;
+    width: .1875rem;
+    height: 1.375rem;
+    background: #bbb;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform-origin: left top;
+    -ms-transform: rotate(45deg) translate(-50%,-50%);
+    -moz-transform-origin: left top;
+    -moz-transform: rotate(45deg) translate(-50%,-50%);
+    -webkit-transform-origin: left top;
+    -webkit-transform: rotate(45deg) translate(-50%,-50%);
+    transform-origin: left top;
+    transform: rotate(45deg) translate(-50%,-50%)
+}
+
+.tk-dialog .quick-box.error-box>.title__txt {
+    color: #ea544a
+}
+
+.tk-dialog .quick-box.error-box>i.icon {
+    color: #ea544a
+}
+
+.tk-dialog .quick-box.success-box>.title__txt {
+    color: #33c98d
+}
+
+.tk-dialog .quick-box.success-box>i.icon {
+    color: #33c98d
+}
+
+.tk-dialog .quick-box.warning-box>.title__txt {
+    color: #f0bd3c
+}
+
+.tk-dialog .quick-box.warning-box>i.icon {
+    color: #f0bd3c
+}
+
+.tk-dialog .quick-box1 {
+    display: inline-block;
+    width: 15.875rem;
+    min-height: 9.375rem;
+    overflow: hidden;
+    background: #404040;
+    border-radius: .375rem;
+    box-sizing: border-box;
+    padding: 1.75rem .375rem .375rem .375rem;
+    color: var(--font-color5)
+}
+
+.tk-dialog .quick-box1>.title__txt {
+    color: var(--font-color5)
+}
+
+.tk-dialog .quick-box1>.close-btn {
+    display: none
+}
+
+.tk-dialog .dialog-empty {
+    display: inline-block;
+    min-width: 37.5rem;
+    max-width: 80%;
+    min-height: 2.8125rem;
+    background: var(--bg-color3);
+    box-sizing: border-box;
+    border-radius: .25rem;
+    font-size: 0;
+    text-align: left;
+    padding: .875rem 1.875rem;
+    box-shadow: 4px 2px 13px 2px rgba(51,51,51,0.26)
+}
+
+.tk-dialog .dialog-empty>span,.tk-dialog .dialog-empty>.close-btn {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: .875rem
+}
+
+.tk-dialog .dialog-empty>span {
+    min-width: 31.5625rem;
+    max-width: 80%;
+    font-weight: bold;
+    word-break: break-all;
+    white-space: normal;
+    margin-right: .5rem
+}
+
+.tk-dialog .dialog-empty>.close-btn {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    position: relative;
+    -ms-transform: scale(0.8,0.8);
+    -moz-transform: scale(0.8,0.8);
+    -webkit-transform: scale(0.8,0.8);
+    transform: scale(0.8,0.8);
+    opacity: .5
+}
+
+.tk-dialog .dialog-empty>.close-btn:hover {
+    opacity: 1
+}
+
+.tk-dialog .dialog-empty>.close-btn::before {
+    content: "";
+    display: inline-block;
+    width: .1875rem;
+    height: 1.375rem;
+    background: #bbb;
+    -ms-transform-origin: left top;
+    -ms-transform: rotate(-45deg) translate(-50%,-50%);
+    -moz-transform-origin: left top;
+    -moz-transform: rotate(-45deg) translate(-50%,-50%);
+    -webkit-transform-origin: left top;
+    -webkit-transform: rotate(-45deg) translate(-50%,-50%);
+    transform-origin: left top;
+    transform: rotate(-45deg) translate(-50%,-50%);
+    position: absolute;
+    top: 50%;
+    left: 50%
+}
+
+.tk-dialog .dialog-empty>.close-btn::after {
+    content: "";
+    display: inline-block;
+    width: .1875rem;
+    height: 1.375rem;
+    background: #bbb;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform-origin: left top;
+    -ms-transform: rotate(45deg) translate(-50%,-50%);
+    -moz-transform-origin: left top;
+    -moz-transform: rotate(45deg) translate(-50%,-50%);
+    -webkit-transform-origin: left top;
+    -webkit-transform: rotate(45deg) translate(-50%,-50%);
+    transform-origin: left top;
+    transform: rotate(45deg) translate(-50%,-50%)
+}
+
+.move-able {
+    cursor: move
+}
+
+.tk-dialog .loading-box {
+    min-height: 6.25rem;
+    min-width: 6.25rem;
+    overflow: hidden;
+    text-align: center;
+    padding: .625rem
+}
+
+.tk-dialog .loading-box>.loading-txt {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 .25rem;
+    word-break: keep-all;
+    min-width: auto !important;
+    margin: 0;
+    margin-top: .625rem;
+    font-size: .75rem;
+    font-weight: normal;
+    color: var(--font-color2)
+}
+
+.tk-dialog .loading-icon {
+    display: inline-block;
+    width: 3.125rem;
+    height: 3.125rem
+}
+
+.tk-dialog .quick-box1 {
+    display: inline-block;
+    width: 15.875rem;
+    min-height: 9.375rem;
+    overflow: hidden;
+    background: #404040;
+    border-radius: .375rem;
+    box-sizing: border-box;
+    padding: 1.75rem .375rem .375rem .375rem
+}
+
+.tk-dialog .quick-box1>.close-btn {
+    display: none
+}
+
+.tk-dialog .quick-box1.success-box>.quick-icon,.tk-dialog .quick-box1.error-box>.quick-icon {
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: url(https://static.zxxk.com/zujuan/libs/assets/ui/TKDialog/jbox-icons2.png) no-repeat -303px 0;
+    margin-bottom: .625rem
+}
+
+.tk-dialog .quick-box1.success-box>.quick-icon {
+    background-position: 0 0
+}
+
+.tk-dialog .quick-box1.success-box>.success-txt,.tk-dialog .quick-box1.success-box>.error-txt {
+    display: block;
+    width: 100%;
+    color: var(--font-color5);
+    text-align: center;
+    word-break: break-all;
+    white-space: normal
+}
+
+.tk-dialog .hide-effect1 {
+    -ms-transition-property: transform,opacity;
+    -ms-transition-duration: .5s;
+    -ms-transition-timing-function: ease-in;
+    -ms-transform: translate(0,-200px);
+    -moz-transition-property: transform,opacity;
+    -moz-transition-duration: .5s;
+    -moz-transition-timing-function: ease-in;
+    -moz-transform: translate(0,-200px);
+    -webkit-transition-property: transform,opacity;
+    -webkit-transition-duration: .5s;
+    -webkit-transition-timing-function: ease-in;
+    -webkit-transform: translate(0,-200px);
+    transition-property: transform,opacity;
+    transition-duration: .5s;
+    transition-timing-function: ease-in;
+    transform: translate(0,-200px);
+    opacity: 0
+}
+
+.ife-modal__cnt {
+    position: relative
+}
+
+.ife-modal__cnt>.ife-mask-box {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 500
+}
+
+.ife-modal__cnt>.ife-mask-box>span {
+    display: none;
+    max-width: 80%;
+    max-height: 80%;
+    box-sizing: border-box;
+    padding: .625rem;
+    background: rgba(100,100,100,0.8);
+    border-radius: .25rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 550;
+    transform: translate(-50%,-50%);
+    font-size: 1rem;
+    color: var(--font-color2);
+    font-weight: normal;
+    letter-spacing: 2px;
+    word-break: break-all;
+    white-space: initial
+}
+
+.ife-modal__cnt>.ife-mask-box:hover>span {
+    display: inline-block
+}
+
+.ife-modal__cnt>.ife-mask-box>.ife-mask-box__bg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color3);
+    opacity: .3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 500
+}
+
+.tk-dialog .tk-dialog-skin2 {
+    border-radius: 4px
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog__title {
+    box-sizing: border-box;
+    padding: 0 1.25rem;
+    border-bottom: 1px solid #efefef;
+    background: var(--bg-color3)
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog__title>span {
+    color: var(--font-color2)
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog__title>a.close-btn {
+    width: .875rem;
+    height: .875rem;
+    overflow: hidden
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog__title>a.close-btn::before {
+    background-color: rgba(0,0,0,0.5)
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog__title>a.close-btn::after {
+    background-color: rgba(0,0,0,0.5)
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog__cnt {
+    text-align: left
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog-btn-box {
+    display: table-cell;
+    width: 1%;
+    height: 5.625rem;
+    box-sizing: border-box;
+    border-radius: 0 0 .25rem .25rem;
+    text-align: center;
+    vertical-align: middle;
+    background: var(--bg-color3)
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog-btn-box>.dialog-btn {
+    display: inline-block;
+    vertical-align: middle;
+    width: 5.375rem;
+    height: 1.9375rem;
+    margin: 0 1.5rem;
+    box-sizing: border-box;
+    border: 1px solid var(--primary-color1);
+    background: var(--primary-bg-color1);
+    border-radius: .25rem
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog-btn-box>.dialog-btn:hover {
+    background: var(--primary-bg-hover-color1)
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog-btn-box>.dialog-btn.cancel-btn {
+    background: var(--bg-color3);
+    color: var(--primary-font-color1)
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog-btn-box>.dialog-btn.cancel-btn:hover {
+    background: #e8f0ff;
+    color: var(--primary-font-color1-hover)
+}
+
+.tk-dialog>.wrapper>.box.tk-dialog-skin2 {
+    min-width: 22.5rem
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog__cnt[data-confirm="1"] {
+    border-radius: 0
+}
+
+.tk-dialog .tk-dialog-skin2>.dialog__cnt[data-confirm="1"]+.dialog-btn-box {
+    height: 4rem
+}
+
+.tk-notice-container {
+    display: block;
+    box-sizing: border-box;
+    max-width: 30%;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    z-index: 900
+}
+
+.tk-notice-container .tk-notice-item {
+    display: block;
+    min-height: 1.25rem;
+    max-height: 30%;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    padding: 1.25rem 1.125rem .625rem 1.125rem;
+    border-radius: .375rem;
+    background: var(--bg-color3);
+    color: var(--font-color2);
+    border: 1px solid var(--primary-color1);
+    box-shadow: 4px 3px 7px 0 rgba(0,0,0,0.1);
+    position: relative
+}
+
+.tk-notice-container .tk-notice-item>.close-btn {
+    display: inline-block;
+    width: .75rem;
+    height: .75rem;
+    background: url(https://static.zxxk.com/zujuan/libs/assets/close.png) no-repeat center center;
+    position: absolute;
+    top: .625rem;
+    right: .625rem
+}
+
+.tk-notice-container .tk-notice-item>.pop-cnt {
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 1rem
+}
+
+.tk-notice-container .tk-notice-item>.pop-cnt>.title-txt {
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: .5rem;
+    font-size: .75rem;
+    font-weight: bold;
+    white-space: normal;
+    word-break: break-all;
+    color: var(--font-color2)
+}
+
+.tk-notice-container .tk-notice-item>.pop-cnt>.cnt-txt {
+    display: block;
+    box-sizing: border-box;
+    font-size: .75rem;
+    white-space: normal;
+    word-break: break-all;
+    line-height: 1.5
+}
+
+.tk-notice-container .tk-notice-item>.ctrl-bar {
+    display: block;
+    box-sizing: border-box;
+    font-size: 0;
+    text-align: right
+}
+
+.tk-notice-container .tk-notice-item>.ctrl-bar>.ctrl-btn {
+    display: inline-block;
+    vertical-align: middle;
+    height: 1.75rem
+}
+
+.tk-notice-container .tk-notice-item>.ctrl-bar>.ctrl-btn.confirm-btn {
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: .875rem;
+    padding: .3125rem .875rem;
+    font-size: .875rem;
+    color: var(--font-color5);
+    background: var(--primary-bg-color1)
+}
