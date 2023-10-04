@@ -33,7 +33,7 @@ img {
 }
 
 :root {
-    width: 100vw;
+    width: 98vw;
     min-height: 100%;
     min-height: 100vh;
     background: var(--bg-color2);

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cherry-markdown@0.8.26/dist/cherry-markdown.min.css">
+
+  <link rel="stylesheet" href="css/layui.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+</head>
+
+<body>
+  <div class="layui-container" style="margin-top: 20px;">
+    <form class="layui-form " lay-filter="questionForm">
+      <div class="layui-form-item">
+        <label class="layui-form-label" for="mathItemType">题目类型</label>
+        <div class="layui-input-block">
+          <select id="mathItemType" name="type" lay-verify="required" lay-search="" title="题目类型">
+            <option value="">直接选择或搜索选择</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">试题题干</label>
+        <div class="layui-input-block">
+          <div id="bodyEditor"></div>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">题干自定义拓展信息</label>
+        <div class="layui-input-block">
+          <div id="extMsgEditor"></div>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">试题答案</label>
+        <div class="layui-input-block">
+          <div id="answerEditor"></div>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">试题解析</label>
+        <div class="layui-input-block">
+          <div id="analysisEditor"></div>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label" for="levelValue">难易程度</label>
+        <div class="layui-input-block">
+          <input type="number" id="levelValue" name="level" lay-verify="required" hidden>
+          <div id="level"></div>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <div class="layui-inline">
+            <input type="checkbox" lay-skin="primary" name="keepForm" value="1" title="继续录入">
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn" lay-submit lay-filter="submitForm">提交</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <script src="https://cdn.staticfile.org/layui/2.6.8/layui.js"></script>
+
+  <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/cherry-markdown@0.8.26/dist/cherry-markdown.min.js"></script>
+  <script>
+    var baseConfig = {
+      engine: {
+        syntax: {
+          mathBlock: {
+            engine: 'MathJax', // katex或MathJax
+            src: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js', // 如果使用MathJax plugins，则需要使用该url通过script标签引入
+          },
+          inlineMath: {
+            engine: 'MathJax', // katex或MathJax
+          },
+        },
+        theme: 'idea'
+      }
+      , toolbars: {
+        theme: 'light',
+        toolbar: ['fullScreen', 'bold', 'italic', 'strikethrough', '|', 'color', 'ruby', '|', 'image', 'hr', 'formula', 'table', 'pdf', 'graph', 'settings']
+        , toolbarRight: ['theme', '|']
+      }
+    };
+    var ids = ["body", "extMsg", "answer", "analysis"]
+    var configs = {}
+    var cherryEngineInstances = {}
+    for (let index = 0; index < ids.length; index++) {
+      const codeId = ids[index];
+      const elementId = codeId + 'Editor';
+      var elementConfig = Object.assign({}, baseConfig, {
+        id: elementId, editor: {
+          height: '180px',
+          id: codeId + '_id',
+          name: codeId,
+          autoSave2Textarea: true,
+        }
+      });
+      configs[elementId] = elementConfig
+      cherryEngineInstances[elementId] = new Cherry(elementConfig)
+    }
+  </script>
+  <script>
+    var $ = layui.$
+    layui.use(['form', 'rate'], function () {
+      window.$ = layui.$
+      window.form = layui.form
+      window.rate = layui.rate
+      var configData = {
+        arrs: [
+          {
+            "value": 1,
+            "desc": "简单"
+          },
+          {
+            "value": 2,
+            "desc": "较易"
+          },
+          {
+            "value": 3,
+            "desc": "一般"
+          },
+          {
+            "value": 4,
+            "desc": "较难"
+          },
+          {
+            "value": 5,
+            "desc": "困难"
+          }
+        ]
+      }
+      $.get({
+        url: 'http://localhost:8088/question/levels',
+        success: function (rsp) {
+          if (rsp.code == 200) {
+            configData.arrs = rsp.data;
+          }
+        }
+      })
+      //渲染
+      var ins1 = rate.render({
+        elem: '#level'  //绑定元素
+        , text: true
+        , value: 1
+        , setText: function (value) {
+          var arrs = configData.arrs;
+          $("#levelValue").attr({ 'value': value })
+          this.span.text(arrs[value - 1].desc || (value + "星"))
+        }
+      });
+
+      // 监听表单提交
+      form.on('submit(submitForm)', function (data) {
+        var formData = data.field;
+        $.post({
+          url: 'http://localhost:8088/question',
+          dataType: 'json',
+          contentType: 'application/json',
+          data: JSON.stringify(formData),
+          success: function (d) {
+            if (d.code != 200) {
+              console.log(d)
+              return;
+            }
+            if (data.field.keepForm) {
+              var resetData = {}
+              Object.keys(formData).forEach(key => {
+                resetData[key] = ""
+              })
+              resetData.keepForm = 1
+              form.val('questionForm', resetData);
+              form.render()
+            }
+          }
+        })
+        // 使用 ajax 或其他方式发送 POST 请求
+        return data.field.keepForm != 1
+      });
+
+    });
+
+    $.get({
+      url: 'http://localhost:8088/questionType',
+      success: function (data) {
+        if (data.code == 200) {
+          ids = data.data
+          console.log(ids)
+          for (var i = 0; i < ids.length; i++) {
+            var option = document.createElement("option");
+            option.setAttribute("value", ids[i].id);
+            option.innerText = ids[i].name;
+            $("#mathItemType").append(option)
+            layui.form.render('select')
+          }
+        };
+      }
+    })
+
+  </script>
+</body>
+
+</html>

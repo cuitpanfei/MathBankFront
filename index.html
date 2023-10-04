@@ -2,189 +2,178 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cherry-markdown@0.8.26/dist/cherry-markdown.min.css">
-  
-  <link rel="stylesheet" href="css/layui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+    <link rel="stylesheet" href="css/layui.min.css">
+    <link rel="stylesheet" href="css/libs.css">
+    <link rel="stylesheet" href="css/topic.css">
+    <style>
+    </style>
 </head>
 
 <body>
-  <div class="layui-container" style="margin-top: 20px;">
-    <form class="layui-form " lay-filter="questionForm">
-      <div class="layui-form-item">
-        <label class="layui-form-label" for="mathItemType">题目类型</label>
-        <div class="layui-input-block">
-          <select id="mathItemType" name="type" lay-verify="required" lay-search="" title="题目类型">
-            <option value="">直接选择或搜索选择</option>
-          </select>
+    <div class="">
+        <main class=" topic-select-page">
+            <aside class="left-box">
+                <div class="fix-box">
+                    <div class="left-tab-box">
+                        <div class="subject-box" id="knowledge-tree-top">
+                            <i class="icon icon-dot primary-color"></i>
+                            <span class="subject-name primary-color" id="curcategoryname"
+                                categoryid="100875">小学数学综合库</span>
+                        </div>
+                        <div class="multiple-knowlegde model-types">
+                            <div class="switch layui-form">
+                                <input type="checkbox" name="multiple" lay-skin="switch" lay-text="多选|单选"
+                                    lay-filter="multiple-checkbox-filter">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tree-box">
+                        <div class="tree-knowledge-points"></div>
+                    </div>
+                </div>
+            </aside>
+            <aside class="right-box">
+                <!--筛选条件-->
+                <section class="selects-box">
+                    <form class="layui-form" lay-filter="selects-box">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">题型：</label>
+                            <div class="layui-input-block" id="questionType">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">难度：</label>
+                            <div class="layui-input-block" id="questionLevel">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">年级：</label>
+                            <div class="layui-input-block" id="grade">
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <!--排序-->
+                <section class="topic-ctrl-bar">
+                    <form class="layui-form" lay-filter="sort-box">
+                        <div class="sort-ctrls layui-btn-group">
+                            <button class="layui-btn layui-btn-xs layui-btn-normal">综合 <i
+                                    class="layui-icon icon-90">&#xe619;</i>
+                            </button>
+                            <button class="layui-btn layui-btn-xs layui-btn-primary">最新 <i
+                                    class="layui-icon icon-90">&#xe619;</i>
+                            </button>
+                            <button class="layui-btn layui-btn-xs layui-btn-primary">最热 <i
+                                    class="layui-icon icon-90">&#xe619;</i>
+                            </button>
+                        </div>
+                    </form>
+                    <!-- 
+                    <form class="layui-form" lay-filter="search-box">
+                        <div class="layui-form-item" style="margin-bottom: 0;">
+                            <div class="layui-inline">
+                                <div class="layui-input-inline" style="width: 200px; ">
+                                    <input type="text" name="searchResult" placeholder="在结果中搜索" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                     -->
+                    <div class="count-box">
+                        <div class="show-answer layui-form">
+                            <input type="checkbox" name="showAllInfo" id="showAllInfo" title="解析" lay-skin="primary"
+                                checked>
+                        </div>
+                        <i>|</i>
+                        <span>共计 <em class="ques-sum" id="questioncount">0</em> 道试题</span>
+                    </div>
+                </section>
+                <!--试题-->
+                <section class="test-list" id="test-list">
+                </section>
+            </aside>
+        </main>
+    </div>
+
+    <!-- js文件 -->
+    <script src="https://cdn.staticfile.org/layui/2.6.8/layui.js"></script>
+    <script src="js/eleTree.js"></script>
+    <script src="js/xm-select.js" type="text/javascript" charset="utf-8"></script>
+    <script id="questItem" type="text/html">
+        {{#  layui.each(d.records, function(index, item){ }}
+        <div class="tk-quest-item quesroot" questionid="{{item.id}}">
+            <div class="ques-additional">
+                <div class="msg-box">
+                    <div class="left-msg">
+                        <span class="addi-info">
+                            <span class="info-cnt">
+                                {{ item.typeName }}
+                            </span>
+                        </span>
+                        <b class="gap">|</b>
+                        <span class="addi-info">
+                            <span class="info-cnt">{{item.levelName}}</span>
+                        </span>
+                        {{# if( item.knowledgePoints.length !== 0){ }}
+                        <b class="gap">|</b>
+                        <div class="knowledge-list-wrapper single-line">
+                            <div class="knowledge-list">
+                                {{# layui.each(item.knowledgePoints, function(k_index, knowledge){ }}
+                                <span class="knowledge-item">{{knowledge.label}}</span>
+                                {{# }); }}
+                            </div>
+                        </div>
+                        {{# } }}
+                    </div>
+                    <div class="right-msg">
+        
+                    </div>
+                </div>
+        
+            </div>
+        
+            <div class="wrapper quesdiv" id="quesdiv19867010">
+        
+                <div class="exam-item__cnt ">
+                    {{ item.body }}
+                    {{# if(item.type === 1){ }}
+                    <br />
+                    {{ item.extMsg || '' }}
+                    {{# } }}
+                </div>
+                <div class="exam-item__opt">
+                    <div class="item answer">{{ item.answer }}</div>
+                    <div class="item parse">{{ item.analysis }}</div>
+                </div>
+            </div>
+            <div class="exam-item__info clearfix">
+                <div class="info-msgs">
+                    <span class="no-bound" title="{{ item.updateTime }} 更新">{{ item.updateTime }} 更新</span>
+                </div>
+        
+        
+                <div class="ctrl-box">
+                    <a class=" change  ctrl-btn btn_ques_similarq" data-type="" data-page="zsd" data-variant="1"
+                        href="javascript: void 0">
+                        类题
+                    </a>
+                    <a class=" fav ctrl-btn btn_ques_collect" id="coll_{{ item.id }}" data-type="" href="javascript: void 0">收藏</a>
+                    <a class=" detail ctrl-btn" data-type="" target="_blank" href="javascript: void 0">
+                        详情
+                    </a>
+                    <a data-theme="" href="javascript:void 0" data-type="addToExam" id="quesselect{{ item.id }}"
+                        class="addques add-exam-btn  ctrl-btn btn_ques" quesid="{{ item.id }}" categories="" qyid="{{ item.type }}" qyname="{{ item.typeName }}"
+                        qyisselect="False" qdid="{{item.level}}" qdname="{{item.levelName}}">加入试卷</a>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">试题题干</label>
-        <div class="layui-input-block">
-          <div id="bodyEditor"></div>
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">题干自定义拓展信息</label>
-        <div class="layui-input-block">
-          <div id="extMsgEditor"></div>
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">试题答案</label>
-        <div class="layui-input-block">
-          <div id="answerEditor"></div>
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">试题解析</label>
-        <div class="layui-input-block">
-          <div id="analysisEditor"></div>
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label" for="levelValue">难易程度</label>
-        <div class="layui-input-block">
-          <input type="number" id="levelValue" name="level"   lay-verify="required" hidden>
-          <div id="level"></div>
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <div class="layui-input-block">
-          <div class="layui-inline">
-            <input type="checkbox" lay-skin="primary" name="keepForm" value="1" title="继续录入">
-          </div>
-          <div class="layui-inline">
-            <button class="layui-btn" lay-submit lay-filter="submitForm">提交</button>
-          </div>
-        </div>
-
-      </div>
-    </form>
-  </div>
-  <script src="https://cdn.staticfile.org/layui/2.6.8/layui.js"></script>
-
-  <script type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/cherry-markdown@0.8.26/dist/cherry-markdown.min.js"></script>
-  <script>
-    var baseConfig = {
-      engine: {
-        syntax: {
-          mathBlock: {
-            engine: 'MathJax', // katex或MathJax
-            src: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js', // 如果使用MathJax plugins，则需要使用该url通过script标签引入
-          },
-          inlineMath: {
-            engine: 'MathJax', // katex或MathJax
-          },
-        },
-        theme: 'idea'
-      }
-      , toolbars: {
-        theme: 'light',
-        toolbar: ['fullScreen', 'bold', 'italic', 'strikethrough', '|', 'color', 'ruby', '|', 'image', 'hr', 'formula', 'table', 'pdf', 'graph', 'settings']
-        , toolbarRight: ['theme', '|']
-      }
-    };
-    var ids = ["body", "extMsg", "answer", "analysis"]
-    var configs = {}
-    var cherryEngineInstances = {}
-    for (let index = 0; index < ids.length; index++) {
-      const codeId = ids[index];
-      const elementId = codeId + 'Editor';
-      var elementConfig = Object.assign({}, baseConfig, {
-        id: elementId, editor: {
-          height: '180px',
-          id: codeId + '_id',
-          name: codeId,
-          autoSave2Textarea: true,
-        }
-      });
-      configs[elementId] = elementConfig
-      cherryEngineInstances[elementId] = new Cherry(elementConfig)
-    }
-  </script>
-  <script>
-    var $ = layui.$
-    layui.use(['form', 'rate'],function () {
-      window.$=layui.$
-      window.form=layui.form
-      window.rate=layui.rate
-      //渲染
-      var ins1 = rate.render({
-        elem: '#level'  //绑定元素
-        , text: true
-        , value: 1
-        , length: 4
-        , setText: function (value) {
-          var arrs = [
-            '简单',
-            '一般',
-            '难',
-            '极难'
-          ];
-          $("#levelValue").attr({ 'value': value })
-          this.span.text(arrs[value - 1] || (value + "星"))
-        }
-      });
-
-      // 监听表单提交
-      form.on('submit(submitForm)', function (data) {
-        var formData = data.field;
-        $.post({
-          url: 'http://localhost:8088/question',
-          dataType:'json',
-          contentType: 'application/json',
-          data: JSON.stringify(formData),
-          success: function (d) {
-            if (d.code!=200){
-              console.log(d)
-              return;
-            }
-            if (data.field.keepForm) {
-              var resetData = {}
-              Object.keys(formData).forEach(key => {
-                resetData[key] = ""
-              })
-              resetData.keepForm = 1
-                form.val('questionForm', resetData);
-                form.render()
-            }
-          }
-        })
-        // 使用 ajax 或其他方式发送 POST 请求
-        return data.field.keepForm != 1
-      });
-      
-    });
-    
-    $.get({
-        url: 'http://localhost:8088/questionType',
-        success: function (data) {
-          if (data.code == 200) {
-            ids = data.data
-            console.log(ids)
-            for (var i = 0; i < ids.length; i++) {
-              var option = document.createElement("option");
-              option.setAttribute("value", ids[i].id);
-              option.innerText = ids[i].name;
-              $("#mathItemType").append(option)
-              layui.form.render('select')
-            }
-          };
-        }
-      })
-
-  </script>
+        {{#  }); }}
+        <div id="pageInfo"></div>
+        {{#  if(d.records.length === 0){ }}
+            无数据
+        {{#  } }}
+    </script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
