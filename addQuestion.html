@@ -144,7 +144,7 @@
         ]
       }
       $.get({
-        url: 'http://localhost:8088/question/levels',
+        url: 'http://10.0.0.231:8088/question/levels',
         success: function (rsp) {
           if (rsp.code == 200) {
             configData.arrs = rsp.data;
@@ -167,7 +167,7 @@
       form.on('submit(submitForm)', function (data) {
         var formData = data.field;
         $.post({
-          url: 'http://localhost:8088/question',
+          url: 'http://10.0.0.231:8088/question',
           dataType: 'json',
           contentType: 'application/json',
           data: JSON.stringify(formData),
@@ -194,7 +194,7 @@
     });
 
     $.get({
-      url: 'http://localhost:8088/questionType',
+      url: 'http://10.0.0.231:8088/questionType',
       success: function (data) {
         if (data.code == 200) {
           ids = data.data

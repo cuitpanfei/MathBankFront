@@ -2,7 +2,7 @@ var $ = layui.$;
 var eleTree = layui.eleTree;
 var ele = eleTree({
   el: "div.tree-knowledge-points",
-  url: "http://localhost:8088/knowledgePoints",
+  url: "http://10.0.0.231:8088/knowledgePoints",
   response: {
     statusName: "code",
     statusCode: 200,
@@ -61,7 +61,7 @@ layui.use(["form", "laytpl", "laypage"], function () {
   });
 
   renderSelect(
-    "http://localhost:8088/questionType",
+    "http://10.0.0.231:8088/questionType",
     "#questionType",
     (item) => {
       item.value = item.id;
@@ -69,7 +69,7 @@ layui.use(["form", "laytpl", "laypage"], function () {
     }
   );
   renderSelect(
-    "http://localhost:8088/question/levels",
+    "http://10.0.0.231:8088/question/levels",
     "#questionLevel",
     (item) => {
       item.name = item.desc;
@@ -137,7 +137,7 @@ layui.use(["form", "laytpl", "laypage"], function () {
     );
     questionLevel = selectValues("questionLevel", params, [1, 2, 3, 4, 5]);
     grade = selectValues("grade", params, [1, 2, 3, 4, 5, 6]);
-    var url = "http://localhost:8088/question?p=" + p + "&s=" + s;
+    var url = "http://10.0.0.231:8088/question?p=" + p + "&s=" + s;
     var toUrl = (arr, name) =>
       $.each(arr, function (_item, key) {
         var link = "&" + name + "=" + key;
